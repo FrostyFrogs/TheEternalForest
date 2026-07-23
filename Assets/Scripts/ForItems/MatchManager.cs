@@ -30,10 +30,13 @@ public class MatchManager : MonoBehaviour
     private bool lit = false;
     private bool moving = false;
 
+    public bool IsMatchLit
+    {
+        get{return lit;}
+    }
 
     // The normal position of the match in front of the camera
     private Vector3 defaultOffset;
-
 
 
     void Start()

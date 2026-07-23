@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Slope Handling")]
     public float maxSlopeAngle;
     private RaycastHit slopeHit;
-
+    
     public Transform orientation;
 
     float horizontalInput;
