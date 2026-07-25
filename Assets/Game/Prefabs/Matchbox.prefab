@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7333737028655080046}
   - component: {fileID: 6403975220625723617}
   - component: {fileID: 6885223771606428935}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Matchbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,4 +125,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52e2f5b8d70a5b42b5643dd3fd091de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MatchPickup
-  matchesToGive: 5
+  matchesToGive: 2
