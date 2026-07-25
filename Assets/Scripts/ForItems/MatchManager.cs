@@ -74,9 +74,7 @@ public class MatchManager : MonoBehaviour
 
 
         // Right click = light match
-        if (equipped &&
-            !lit &&
-            Input.GetMouseButtonDown(1))
+        if (equipped && !lit && Input.GetMouseButtonDown(1))
         {
             StartCoroutine(LightMatch());
         }
@@ -92,18 +90,13 @@ public class MatchManager : MonoBehaviour
         // Show the match
         match.SetActive(true);
 
-
         // Start below the screen
-        Vector3 startPosition =
-            defaultOffset + Vector3.down * dropDistance;
-
+        Vector3 startPosition = defaultOffset + Vector3.down * dropDistance;
 
         moveItem.currentOffset = startPosition;
 
-
         equipped = true;
         lit = false;
-
 
         // Raise into view
         StartCoroutine(RaiseMatch());
@@ -115,7 +108,6 @@ public class MatchManager : MonoBehaviour
     {
         // Small delay for strike animation
         yield return new WaitForSeconds(0.4f);
-
 
         // Light match
         lit = true;
@@ -135,8 +127,6 @@ public class MatchManager : MonoBehaviour
         StartCoroutine(BurnedMatch());
     }
 
-
-
     IEnumerator BurnedMatch()
     {
         moving = true;
@@ -145,13 +135,8 @@ public class MatchManager : MonoBehaviour
         // Move match down
         Vector3 start = moveItem.currentOffset;
 
-        Vector3 end =
-            defaultOffset + Vector3.down * dropDistance;
-
-
+        Vector3 end = defaultOffset + Vector3.down * dropDistance;
         float t = 0;
-
-
         while (t < 1)
         {
             t += Time.deltaTime * moveSpeed;
@@ -162,10 +147,8 @@ public class MatchManager : MonoBehaviour
             yield return null;
         }
 
-
         // Consume match
         matchesRemaining--;
-
 
         equipped = false;
         lit = false;
@@ -184,73 +167,56 @@ public class MatchManager : MonoBehaviour
         }
     }
 
-
-
     IEnumerator LowerMatch()
     {
         moving = true;
 
-
         Vector3 start = moveItem.currentOffset;
 
-        Vector3 end =
-            defaultOffset + Vector3.down * dropDistance;
-
+        Vector3 end = defaultOffset + Vector3.down * dropDistance;
 
         float t = 0;
-
 
         while (t < 1)
         {
             t += Time.deltaTime * moveSpeed;
 
-            moveItem.currentOffset =
-                Vector3.Lerp(start, end, t);
+            moveItem.currentOffset = Vector3.Lerp(start, end, t);
 
             yield return null;
         }
 
-
         moveItem.currentOffset = end;
-
 
         // Hide match
         match.SetActive(false);
-
 
         equipped = false;
 
         moving = false;
     }
 
-
-
     IEnumerator RaiseMatch()
     {
         moving = true;
-
 
         Vector3 start = moveItem.currentOffset;
 
         Vector3 end = defaultOffset;
 
-
         float t = 0;
-
 
         while (t < 1)
         {
             t += Time.deltaTime * moveSpeed;
 
-            moveItem.currentOffset =
-                Vector3.Lerp(start, end, t);
+            moveItem.currentOffset = Vector3.Lerp(start, end, t);
 
             yield return null;
         }
 
 
         moveItem.currentOffset = end;
-
 
         moving = false;
     }

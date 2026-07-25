@@ -43,12 +43,7 @@ public class InsanityManager : MonoBehaviour
     public void IncreaseInsanity(float amount)
     {
         insanity += amount;
-
-        insanity = Mathf.Clamp(
-            insanity,
-            0,
-            maxInsanity
-        );
+        insanity = Mathf.Clamp(insanity, 0, maxInsanity);
     }
 
 
@@ -57,11 +52,7 @@ public class InsanityManager : MonoBehaviour
     {
         insanity -= amount;
 
-        insanity = Mathf.Clamp(
-            insanity,
-            0,
-            maxInsanity
-        );
+        insanity = Mathf.Clamp(insanity, 0, maxInsanity);
     }
 
 

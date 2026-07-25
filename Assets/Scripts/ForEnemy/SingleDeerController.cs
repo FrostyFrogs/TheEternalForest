@@ -34,6 +34,7 @@ public class EnemyController : MonoBehaviour
     [Header("Insanity")]
     public float failureInsanity = 25f;
     public float successInsanity = -10f;
+    public float passiveInsanity;
 
 
 
@@ -59,13 +60,9 @@ public class EnemyController : MonoBehaviour
         // Choose left or right
         float side = Random.value < 0.5f ? -1f : 1f;
 
-        float sideDistance =
-            Random.Range(
-                sideDistanceMin,
-                sideDistanceMax);
+        float sideDistance = Random.Range(sideDistanceMin, sideDistanceMax);
 
-        float forwardDistance =
-            Random.Range(forwardDistanceMin, forwardDistanceMax);
+        float forwardDistance = Random.Range(forwardDistanceMin, forwardDistanceMax);
 
         transform.position = player.position + player.right * side * sideDistance + player.forward * forwardDistance;
 
@@ -112,7 +109,7 @@ public class EnemyController : MonoBehaviour
             MissedEnemy();
         }
 
-        insanityManager.IncreaseInsanity(0.01f);
+        insanityManager.IncreaseInsanity(passiveInsanity);
     }
 
     bool PlayerLookingAtEnemy()
@@ -131,7 +128,7 @@ public class EnemyController : MonoBehaviour
             playerCamera.transform.position,
             direction.normalized,out hit, 100f))
         {
-            if(hit.transform == transform)
+            if(hit.transform.root == transform)
             {
                 return true;
             }
