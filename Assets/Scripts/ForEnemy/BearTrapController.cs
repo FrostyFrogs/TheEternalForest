@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class BearTrap : MonoBehaviour
+public class BearTrapController : MonoBehaviour
 {
     [Header("Trap")]
     public float trapTime = 2f;

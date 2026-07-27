@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class BehindEnemy : MonoBehaviour
+public class StalkerChase : MonoBehaviour
 {
     [Header("Looking")]
     public float lookAngle = 25f;

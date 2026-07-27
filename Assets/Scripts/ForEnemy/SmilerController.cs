@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ForwardEntityManager : MonoBehaviour
+public class SmilerController : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
@@ -24,7 +24,7 @@ public class ForwardEntityManager : MonoBehaviour
         // TEST KEY
         if(Input.GetKeyDown(KeyCode.Y))
         {
-            SpawnEntity();
+            SpawnEnemy();
         }
 
         // Check if the old entity was destroyed
@@ -36,7 +36,7 @@ public class ForwardEntityManager : MonoBehaviour
 
 
 
-    void SpawnEntity()
+    public void SpawnEnemy()
     {
         if(player == null || entityPrefab == null)
             return;
@@ -58,8 +58,8 @@ public class ForwardEntityManager : MonoBehaviour
             );
 
 
-        ForwardEntity entity =
-            currentEntity.GetComponent<ForwardEntity>();
+        SmilerChase entity =
+            currentEntity.GetComponent<SmilerChase>();
 
 
         if(entity != null)

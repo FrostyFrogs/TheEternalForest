@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BehindEnemyController : MonoBehaviour
+public class StalkerController : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
@@ -45,8 +45,8 @@ public class BehindEnemyController : MonoBehaviour
             );
 
 
-        BehindEnemy enemy =
-            currentEnemy.GetComponent<BehindEnemy>();
+        StalkerChase enemy =
+            currentEnemy.GetComponent<StalkerChase>();
 
 
         if(enemy != null)

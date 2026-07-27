@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class ForwardEntity : MonoBehaviour
+public class SmilerChase : MonoBehaviour
 {
     [Header("Distance")]
     // Distance required for entity to disappear

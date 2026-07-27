@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class StampedeManager : MonoBehaviour
+public class StampedeController : MonoBehaviour
 {
     [Header("References")]
     public PlayerMovement playerMovement;
@@ -116,8 +116,8 @@ public class StampedeManager : MonoBehaviour
 
 
 
-        StampedeEnemy movement =
-            enemy.GetComponent<StampedeEnemy>();
+        StampedeChase movement =
+            enemy.GetComponent<StampedeChase>();
 
         movement.insanityManager = insanityManager;
         movement.insanityDamage = walkFailureInsanity;
@@ -148,8 +148,8 @@ public class StampedeManager : MonoBehaviour
                 Quaternion.identity
             );
 
-        StampedeEnemy movement =
-            enemy.GetComponent<StampedeEnemy>();
+        StampedeChase movement =
+            enemy.GetComponent<StampedeChase>();
 
         movement.insanityManager = insanityManager;
         movement.insanityDamage = runFailureInsanity;

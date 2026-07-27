@@ -34,7 +34,10 @@ public class MatchManager : MonoBehaviour
     // The normal position of the match in front of the camera
     private Vector3 defaultOffset;
 
-
+    public bool IsMatchLit
+    {
+        get { return lit; }
+    }
 
     void Start()
     {

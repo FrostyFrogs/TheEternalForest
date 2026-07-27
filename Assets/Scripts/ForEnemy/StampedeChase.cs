@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class StampedeEnemy : MonoBehaviour
+public class StampedeChase : MonoBehaviour
 {
     private Vector3 movementDirection;
 

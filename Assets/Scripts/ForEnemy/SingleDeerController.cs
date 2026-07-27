@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class SingleDeerController : MonoBehaviour
 {
     [Header("References")]
     public Transform player;
