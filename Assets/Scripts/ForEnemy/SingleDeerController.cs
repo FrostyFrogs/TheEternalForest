@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     [Header("Spawn")]
     public float sideDistanceMin = 6f;
     public float sideDistanceMax = 12f;
+    public float spawnHeightOffset = 0.5f;
 
     public float forwardDistanceMin = 10f;
     public float forwardDistanceMax = 25f;
@@ -64,7 +65,11 @@ public class EnemyController : MonoBehaviour
 
         float forwardDistance = Random.Range(forwardDistanceMin, forwardDistanceMax);
 
-        transform.position = player.position + player.right * side * sideDistance + player.forward * forwardDistance;
+       Vector3 spawnPosition = player.position + player.right * side * sideDistance + player.forward * forwardDistance;
+
+        spawnPosition.y += spawnHeightOffset;
+
+        transform.position = spawnPosition;
 
         // Face player
         transform.LookAt(player);
