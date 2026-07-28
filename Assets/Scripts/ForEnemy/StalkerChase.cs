@@ -11,6 +11,11 @@ public class StalkerChase : MonoBehaviour
     [Header("Insanity")]
     public float passiveInsanity = 5f;
     public float screamInsanity = 30f;
+    public float successInsanity = 15f;
+
+    [Header("Following")]
+    public float followDistance = 15f;
+    public float followSpeed = 3f;
 
 
     [Header("Audio")]
@@ -52,7 +57,10 @@ public class StalkerChase : MonoBehaviour
     void Update()
     {
         if(disappearing || player == null)
-        return;
+            return;
+
+
+        FollowBehindPlayer();
 
 
         if(insanityManager != null)
@@ -78,7 +86,7 @@ public class StalkerChase : MonoBehaviour
         {
             lookTimer = 0;
         }
-    }
+}
 
 
 
@@ -155,7 +163,28 @@ public class StalkerChase : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
 
-
+        insanityManager.DecreaseInsanity(successInsanity);
         Destroy(gameObject);
+    }
+
+    void FollowBehindPlayer()
+    {
+        Vector3 targetPosition =
+            player.position -
+            player.forward * followDistance;
+
+
+        targetPosition.y = transform.position.y;
+
+
+        transform.position =
+            Vector3.MoveTowards(
+                transform.position,
+                targetPosition,
+                followSpeed * Time.deltaTime
+            );
+
+
+        FacePlayer();
     }
 }

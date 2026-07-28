@@ -56,7 +56,10 @@ public class EncounterManager : MonoBehaviour
     [Header("Minimum Cooldowns")]
     public float minimumCooldown = 20f;
 
-
+    public float GetDifficulty()
+    {
+        return difficulty;
+    }
 
     void Start()
     {

@@ -531,8 +531,8 @@ MonoBehaviour:
   desiredDistance: 60
   player: {fileID: 491388085}
   insanityManager: {fileID: 491388090}
-  insanityPerSecond: 10
-  dangerDistance: 10
+  insanityPerSecond: 20
+  dangerDistance: 20
 --- !u!65 &231148246
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -828,8 +828,8 @@ MonoBehaviour:
   maxVignetteAlpha: 0.65
   insanityRing: {fileID: 491388091}
   breathing: {fileID: 491388092}
-  maxRingVolume: 0.7
-  maxBreatheVolume: 0.2
+  maxRingVolume: 0.6
+  maxBreatheVolume: 0.3
   insanityOverlay: {fileID: 1205945794}
   gameOverFadeTime: 3
   finalRingVolume: 1
@@ -845,10 +845,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: c1b29813d6df3864eb0fd4249774001b, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -942,7 +942,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 479bf602794a0d94ba4858b8741367d6, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1382,7 +1382,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.023529412, g: 0.084905684, b: 0.43529412, a: 0}
+  m_Color: {r: 0.023529412, g: 0, b: 0.43529412, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1695,7 +1695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.023529412, g: 0.08627451, b: 0.43529412, a: 0}
+  m_Color: {r: 0.022840085, g: 0, b: 0.4339623, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

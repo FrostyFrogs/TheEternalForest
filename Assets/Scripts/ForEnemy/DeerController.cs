@@ -29,7 +29,13 @@ public class DeerController : MonoBehaviour
 
     private GameObject currentDeer;
 
-
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            SpawnEnemy();
+        }
+    }
 
     public void SpawnEnemy()
     {

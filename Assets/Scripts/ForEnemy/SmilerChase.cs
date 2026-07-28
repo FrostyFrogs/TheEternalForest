@@ -15,6 +15,7 @@ public class SmilerChase : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color originalColor;
 
+
     [Header("Looking")]
     // Maximum distance where looking counts
     public float lookDistance = 40f;
@@ -25,8 +26,12 @@ public class SmilerChase : MonoBehaviour
 
     [Header("Insanity")]
     public float insanityPerSecond = 5f;
+    public float successInsanity = 10f;
 
     private InsanityManager insanityManager;
+
+    // Has the player successfully noticed it?
+    private bool hasBeenSeen;
 
 
 
@@ -34,10 +39,13 @@ public class SmilerChase : MonoBehaviour
     // Prevents the entity existing forever
     public float lifeTime = 15f;
 
+
+
     [Header("Movement")]
     public float retreatSpeed = 1f;
     public float shiftRadius = 0.5f;
     public float shiftSpeed = 1.5f;
+
     private Vector3 startPosition;
 
     private Transform player;
@@ -52,8 +60,9 @@ public class SmilerChase : MonoBehaviour
     public void Setup(
         Transform target,
         InsanityManager manager)
-    {   
+    {
         startPosition = transform.position;
+
         player = target;
         insanityManager = manager;
 
@@ -73,23 +82,39 @@ public class SmilerChase : MonoBehaviour
         if(player == null)
             return;
 
-        if (disappearing)
+
+        if(disappearing)
             return;
+
+
 
         ShiftAround();
         MoveAway();
         FacePlayer();
 
-        // Distance between player and entity
+
+
         float distance =
             Vector3.Distance(
                 transform.position,
                 player.position
             );
 
-        // Player reached it
+
+
         FadeWithDistance(distance);
 
+
+
+        // Player has noticed the Smiler
+        if(IsPlayerLooking())
+        {
+            hasBeenSeen = true;
+        }
+
+
+
+        // Player reached it
         if(distance <= disappearDistance)
         {
             Disappear();
@@ -124,16 +149,15 @@ public class SmilerChase : MonoBehaviour
 
 
 
+
     bool IsPlayerLooking()
     {
-        // Direction from player to entity
         Vector3 direction =
             transform.position -
             player.position;
 
 
 
-        // Too far away
         if(direction.magnitude > lookDistance)
         {
             return false;
@@ -141,7 +165,6 @@ public class SmilerChase : MonoBehaviour
 
 
 
-        // Compare player facing direction
         float angle =
             Vector3.Angle(
                 player.forward,
@@ -149,9 +172,9 @@ public class SmilerChase : MonoBehaviour
             );
 
 
-        // Inside viewing cone
         return angle <= lookAngle;
     }
+
 
 
 
@@ -160,10 +183,28 @@ public class SmilerChase : MonoBehaviour
         if(disappearing)
             return;
 
+
         disappearing = true;
+
+
+
+        // Reward player for noticing it
+        if(hasBeenSeen)
+        {
+            if(insanityManager != null)
+            {
+                insanityManager.DecreaseInsanity(
+                    successInsanity
+                );
+            }
+        }
+
+
 
         StartCoroutine(FadeOut());
     }
+
+
 
 
     IEnumerator FadeOut()
@@ -171,11 +212,14 @@ public class SmilerChase : MonoBehaviour
         float timer = 0f;
 
         Color color = spriteRenderer.color;
+
         float startAlpha = color.a;
 
-        while (timer < disappearFadeTime)
+
+        while(timer < disappearFadeTime)
         {
             timer += Time.deltaTime;
+
 
             color.a = Mathf.Lerp(
                 startAlpha,
@@ -183,18 +227,25 @@ public class SmilerChase : MonoBehaviour
                 timer / disappearFadeTime
             );
 
+
             spriteRenderer.color = color;
+
 
             yield return null;
         }
 
+
         Destroy(gameObject);
     }
+
+
+
 
     void FadeWithDistance(float distance)
     {
         if(spriteRenderer == null)
             return;
+
 
 
         float alpha = Mathf.InverseLerp(
@@ -205,10 +256,15 @@ public class SmilerChase : MonoBehaviour
 
 
         Color color = originalColor;
+
         color.a = alpha;
+
 
         spriteRenderer.color = color;
     }
+
+
+
 
     void ShiftAround()
     {
@@ -218,15 +274,22 @@ public class SmilerChase : MonoBehaviour
             Mathf.Cos(Time.time * shiftSpeed * 0.8f)
         ) * shiftRadius;
 
-        transform.position = startPosition + offset;
+
+        transform.position =
+            startPosition + offset;
     }
+
+
+
 
     void MoveAway()
     {
         Vector3 direction =
             (transform.position - player.position).normalized;
 
+
         direction.y = 0;
+
 
         startPosition +=
             direction *
@@ -234,18 +297,27 @@ public class SmilerChase : MonoBehaviour
             Time.deltaTime;
     }
 
+
+
+
     void FacePlayer()
     {
         Vector3 direction =
             player.position - transform.position;
 
+
         direction.y = 0;
+
 
         if(direction == Vector3.zero)
             return;
 
+
+
         Quaternion targetRotation =
             Quaternion.LookRotation(-direction);
+
+
 
         transform.rotation =
             Quaternion.Slerp(

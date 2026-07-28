@@ -27,7 +27,8 @@ public class StampedeChase : MonoBehaviour
         speed = moveSpeed;
         moving = true;
 
-        transform.rotation = Quaternion.LookRotation(movementDirection);
+        transform.rotation =
+            Quaternion.LookRotation(movementDirection);
 
         Destroy(gameObject, lifeTime);
     }
@@ -87,11 +88,20 @@ public class StampedeChase : MonoBehaviour
             Quaternion.LookRotation(direction);
     }
 
+
+
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
-        {   
-            insanityManager.IncreaseInsanity(insanityDamage);
+        {
+            if(insanityManager != null)
+            {
+                insanityManager.IncreaseInsanity(
+                    insanityDamage
+                );
+            }
+
             Destroy(gameObject);
         }
     }
