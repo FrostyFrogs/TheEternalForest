@@ -68,10 +68,7 @@ public class WallController : MonoBehaviour
 
 
         float distance =
-            Vector3.Distance(
-                transform.position,
-                player.position
-            );
+            player.position.z - transform.position.z;
 
 
         if(distance <= dangerDistance)

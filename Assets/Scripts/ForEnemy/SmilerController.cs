@@ -21,11 +21,6 @@ public class SmilerController : MonoBehaviour
 
     void Update()
     {
-        // TEST KEY
-        if(Input.GetKeyDown(KeyCode.Y))
-        {
-            SpawnEnemy();
-        }
 
         // Check if the old entity was destroyed
         if(currentEntity == null)

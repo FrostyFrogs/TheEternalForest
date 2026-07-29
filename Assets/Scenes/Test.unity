@@ -35,7 +35,7 @@ RenderSettings:
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
-  m_ReflectionIntensity: 0.2
+  m_ReflectionIntensity: 0.15
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
@@ -351,9 +351,9 @@ MonoBehaviour:
   warningSound: {fileID: 211288951}
   stampedeSound: {fileID: 211288952}
   warningDelay: 3
-  forwardSpawnDistance: 7
-  sideSpawnDistance: 30
-  enemySpeed: 30
+  forwardSpawnDistance: 10
+  sideSpawnDistance: 100
+  enemySpeed: 60
   walkFailureInsanity: 20
   runFailureInsanity: 35
   successInsanity: 5
@@ -531,8 +531,8 @@ MonoBehaviour:
   desiredDistance: 60
   player: {fileID: 491388085}
   insanityManager: {fileID: 491388090}
-  insanityPerSecond: 10
-  dangerDistance: 10
+  insanityPerSecond: 30
+  dangerDistance: 30
 --- !u!65 &231148246
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -620,7 +620,7 @@ Transform:
   m_GameObject: {fileID: 231148244}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00017347877, y: -0.00016651608, z: 0.0004249456, w: 0.9999999}
-  m_LocalPosition: {x: -1.0203, y: 5.5, z: -9.94}
+  m_LocalPosition: {x: -1, y: 5.5, z: 0}
   m_LocalScale: {x: 2503.9639, y: 13.389, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1208,16 +1208,6 @@ MonoBehaviour:
   flame: {fileID: 2138785409}
   flameLight: {fileID: 225906965}
   glowLight: {fileID: 1259210563}
---- !u!4 &800321093 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4732071767328675226, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-  m_PrefabInstance: {fileID: 5591405673344405924}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1001998087 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4827263241280785560, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-  m_PrefabInstance: {fileID: 5591405673344405924}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1056185826
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,7 +1849,7 @@ MonoBehaviour:
   playerCamera: {fileID: 1621551143}
   matchManager: {fileID: 491388088}
   insanityManager: {fileID: 491388090}
-  enemyPrefab: {fileID: 2567750992236060293, guid: 663c8ff5961a1c1489dbecbc612c5c02, type: 3}
+  enemyPrefab: {fileID: 8508065912441890408, guid: 556d6f378247eac45830c8402fd90401, type: 3}
   spawnDistance: 10
 --- !u!4 &1487717887
 Transform:
@@ -2145,12 +2135,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ChunkManager
   encounterManager: {fileID: 1080693457}
   chunkPrefabs:
-  - {fileID: 1001998087}
+  - {fileID: 7853674697215617523, guid: 6b138063029c90545a353c8c85c9cd7a, type: 3}
   player: {fileID: 491388085}
-  chunkSize: 20
-  horizontalRange: 2
-  forwardRange: 3
-  backwardRange: 3
+  chunkSize: 185
+  horizontalRange: 1
+  forwardRange: 1
+  backwardRange: 1
   wall: {fileID: 231148245}
   wallStartDistance: 100
 --- !u!4 &1839830969
@@ -7193,67 +7183,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1001 &5591405673344405924
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 398932465633344210, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 398932465633344210, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 398932465633344210, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 398932465633344210, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 398932465633344210, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 398932465633344210, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 398932465633344210, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 398932465633344210, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 398932465633344210, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 398932465633344210, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4827263241280785560, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: m_Name
-      value: GroundOne
-      objectReference: {fileID: 0}
-    - target: {fileID: 8691426800240425980, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
-      propertyPath: startPoint
-      value: 
-      objectReference: {fileID: 800321093}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d05145bfa76789b439eea180f52f4f77, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -7262,7 +7191,6 @@ SceneRoots:
   - {fileID: 1285414151}
   - {fileID: 2078752643}
   - {fileID: 1320499998}
-  - {fileID: 5591405673344405924}
   - {fileID: 1839830969}
   - {fileID: 231148249}
   - {fileID: 1056185827}

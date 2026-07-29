@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Chunk : MonoBehaviour
 {
-    public Transform startPoint;
-    public Transform endPoint;
+    public LayerMask WhatIsGround;
 
 
     [Header("Objects")]
@@ -19,6 +18,9 @@ public class Chunk : MonoBehaviour
     [Header("Bear Traps")]
     public int startingBearTraps = 0;
     public int maximumBearTraps = 5;
+
+    [Header("Spawn")]
+    public float spawnRange = 187f;
 
 
 
@@ -101,15 +103,15 @@ public class Chunk : MonoBehaviour
 
         float x =
             Random.Range(
-                -10f,
-                10f
+                -spawnRange,
+                spawnRange
             );
 
 
         float z =
             Random.Range(
-                -10f,
-                10f
+                -spawnRange,
+                spawnRange
             );
 
 
@@ -129,7 +131,7 @@ public class Chunk : MonoBehaviour
             randomPosition,
             Vector3.down,
             out hit,
-            100f
+            100f, WhatIsGround
         ))
         {
             Instantiate(

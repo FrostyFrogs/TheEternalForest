@@ -36,18 +36,6 @@ public class StampedeController : MonoBehaviour
     public float runFailureInsanity = 35f;
     public float successInsanity = 10f;
 
-
-    void Update()
-    {
-        // Testing only
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            StartStampede();
-        }
-    }
-
-
-
     public void StartStampede()
     {
         if(active)
