@@ -29,8 +29,6 @@ public class DeerController : MonoBehaviour
 
     private GameObject currentDeer;
 
-
-
     public void SpawnEnemy()
     {
         if(currentDeer != null)

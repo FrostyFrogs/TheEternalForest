@@ -273,6 +273,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Chunk
   startPoint: {fileID: 4732071767328675226}
   endPoint: {fileID: 4041231123596959776}
+  bearTrapPrefab: {fileID: 6423996099025601202, guid: d658c60f8d582ee4e96d368856d9d2a1, type: 3}
+  matchboxPrefab: {fileID: 840587572793171283, guid: 68c88228995789e4d81143a2378562ad, type: 3}
+  startingMatchboxes: 4
+  minimumMatchboxes: 1
+  startingBearTraps: 1
+  maximumBearTraps: 10
 --- !u!1 &5825014307011266868
 GameObject:
   m_ObjectHideFlags: 0

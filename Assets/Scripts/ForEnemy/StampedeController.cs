@@ -30,21 +30,11 @@ public class StampedeController : MonoBehaviour
 
     private bool active;
 
+
     [Header("Insanity")]
     public float walkFailureInsanity = 20f;
     public float runFailureInsanity = 35f;
     public float successInsanity = 10f;
-
-    void Update()
-    {
-        // Testing only
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            StartStampede();
-        }
-    }
-
-
 
     public void StartStampede()
     {
@@ -61,38 +51,53 @@ public class StampedeController : MonoBehaviour
     {
         active = true;
 
-        // Play warning
-        warningSound.Play();
 
-        // Save where the player was when the warning started
+        if(warningSound != null)
+            warningSound.Play();
+
+
+        // Save where player was when warning started
         warningStartPosition = player.position;
+
 
         // Give player time to react
         yield return new WaitForSeconds(warningDelay);
 
 
+
         switch(playerMovement.state)
         {
             case PlayerMovement.MovementState.crouching:
-                insanityManager.DecreaseInsanity(successInsanity);
+
+                insanityManager.DecreaseInsanity(
+                    successInsanity
+                );
+
                 break;
+
 
 
             case PlayerMovement.MovementState.walking:
+
                 SpawnWalkingStampede();
+
                 break;
 
 
+
             case PlayerMovement.MovementState.sprinting:
+
                 SpawnSprintStampede();
+
                 break;
         }
 
 
-        yield return new WaitForSeconds(10f);
 
         active = false;
     }
+
+
 
     void SpawnWalkingStampede()
     {
@@ -107,6 +112,7 @@ public class StampedeController : MonoBehaviour
             player.right * side * sideSpawnDistance;
 
 
+
         GameObject enemy =
             Instantiate(
                 stampedeEnemyPrefab,
@@ -119,11 +125,17 @@ public class StampedeController : MonoBehaviour
         StampedeChase movement =
             enemy.GetComponent<StampedeChase>();
 
+
         movement.insanityManager = insanityManager;
         movement.insanityDamage = walkFailureInsanity;
 
 
-        movement.StartCrossing(player.right, side, enemySpeed);
+
+        movement.StartCrossing(
+            player.right,
+            side,
+            enemySpeed
+        );
     }
 
 
@@ -148,11 +160,16 @@ public class StampedeController : MonoBehaviour
                 Quaternion.identity
             );
 
+
+
         StampedeChase movement =
             enemy.GetComponent<StampedeChase>();
 
+
         movement.insanityManager = insanityManager;
         movement.insanityDamage = runFailureInsanity;
+
+
 
         movement.StartChasing(
             player,

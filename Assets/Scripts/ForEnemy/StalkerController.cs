@@ -18,14 +18,6 @@ public class StalkerController : MonoBehaviour
 
     private GameObject currentEnemy;
 
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.U))
-        {
-            SpawnEnemy();
-        }
-    }
-
     public void SpawnEnemy()
     {
         if(currentEnemy != null)
