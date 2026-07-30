@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class InsanityManager : MonoBehaviour
 {
@@ -8,10 +10,17 @@ public class InsanityManager : MonoBehaviour
     public float insanity = 0f;
     public float maxInsanity = 100f;
 
+
     [Header("Visual Effects")]
     public Image insanityVignette;
-
     public float maxVignetteAlpha = 0.65f;
+
+
+    [Header("Distance")]
+    public Transform player;
+    private Vector3 startPosition;
+    public float distanceTraveled;
+
 
     [Header("Audio Effects")]
     public AudioSource insanityRing;
@@ -20,27 +29,70 @@ public class InsanityManager : MonoBehaviour
     public float maxRingVolume = 0.5f;
     public float maxBreatheVolume = 0.5f;
 
+
+    [Header("Game Over UI")]
+    public GameObject gameOverPanel;
+    public TMP_Text distanceText;
+
+
     [Header("Game Over Effect")]
     public Image insanityOverlay;
 
     public float gameOverFadeTime = 3f;
-
     public float finalRingVolume = 1f;
 
+
     private bool gameOverStarted;
+
+
+
+    void Start()
+    {
+        if(player != null)
+        {
+            startPosition = player.position;
+        }
+
+
+        if(gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(false);
+        }
+    }
+
+
 
     void Update()
     {
         UpdateInsanityEffect();
+
 
         if(!gameOverStarted)
         {
             UpdateInsanityAudio();
         }
 
+
+        if(player != null)
+        {
+            distanceTraveled =
+                Vector3.Distance(
+                    startPosition,
+                    player.position
+                );
+        }
+
+
         if(insanity >= maxInsanity)
         {
             BecomeInsane();
+        }
+
+
+        if(gameOverStarted &&
+           Input.GetKeyDown(KeyCode.R))
+        {
+            RestartGame();
         }
     }
 
@@ -49,7 +101,13 @@ public class InsanityManager : MonoBehaviour
     public void IncreaseInsanity(float amount)
     {
         insanity += amount;
-        insanity = Mathf.Clamp(insanity, 0, maxInsanity);
+
+        insanity =
+            Mathf.Clamp(
+                insanity,
+                0,
+                maxInsanity
+            );
     }
 
 
@@ -58,7 +116,12 @@ public class InsanityManager : MonoBehaviour
     {
         insanity -= amount;
 
-        insanity = Mathf.Clamp(insanity, 0, maxInsanity);
+        insanity =
+            Mathf.Clamp(
+                insanity,
+                0,
+                maxInsanity
+            );
     }
 
 
@@ -71,8 +134,13 @@ public class InsanityManager : MonoBehaviour
 
         gameOverStarted = true;
 
-        StartCoroutine(GameOverSequence());
+
+        StartCoroutine(
+            GameOverSequence()
+        );
     }
+
+
 
     void UpdateInsanityEffect()
     {
@@ -99,42 +167,42 @@ public class InsanityManager : MonoBehaviour
         insanityVignette.color = color;
     }
 
+
+
     void UpdateInsanityAudio()
     {
-        breathing.pitch = 2f;
-
-        if(insanityRing == null)
-            return;
-
-        if(breathing == null)
+        if(insanityRing == null ||
+           breathing == null)
             return;
 
 
-        float ringAmount =
-            Mathf.Clamp01(insanity / 50f);
-
-        float breatheAmount =
-            Mathf.Clamp01(insanity / 50f);
+        float insanityAmount =
+            Mathf.Clamp01(
+                insanity / 50f
+            );
 
 
         insanityRing.volume =
             Mathf.Lerp(
                 0f,
                 maxRingVolume,
-                ringAmount
+                insanityAmount
             );
+
 
         breathing.volume =
             Mathf.Lerp(
                 0f,
                 maxBreatheVolume,
-                breatheAmount
+                insanityAmount
             );
+
 
         if(!insanityRing.isPlaying)
         {
             insanityRing.Play();
         }
+
 
         if(!breathing.isPlaying)
         {
@@ -142,28 +210,33 @@ public class InsanityManager : MonoBehaviour
         }
     }
 
+
+
     IEnumerator GameOverSequence()
     {
         float timer = 0f;
 
 
         Color overlayColor =
-            insanityOverlay.color;
+            insanityOverlay != null
+            ? insanityOverlay.color
+            : Color.clear;
 
 
         float startAlpha =
             overlayColor.a;
 
 
-
         float startVolume =
-            insanityRing.volume;
+            insanityRing != null
+            ? insanityRing.volume
+            : 0f;
 
 
 
         while(timer < gameOverFadeTime)
         {
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
 
 
             float progress =
@@ -171,7 +244,7 @@ public class InsanityManager : MonoBehaviour
 
 
 
-            // Fade screen to red
+            // Red screen fade
             if(insanityOverlay != null)
             {
                 overlayColor.a =
@@ -188,7 +261,7 @@ public class InsanityManager : MonoBehaviour
 
 
 
-            // Drown out everything with ringing
+            // Ringing overwhelms audio
             if(insanityRing != null)
             {
                 insanityRing.volume =
@@ -200,12 +273,40 @@ public class InsanityManager : MonoBehaviour
             }
 
 
-
             yield return null;
         }
 
 
 
-        // Put death/restart/menu code here
+        if(gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
+
+
+
+        if(distanceText != null)
+        {
+            distanceText.text =
+                "DISTANCE TRAVELED: " +
+                Mathf.RoundToInt(distanceTraveled)
+                + "m";
+        }
+
+
+
+        Time.timeScale = 0f;
+    }
+
+
+
+    void RestartGame()
+    {
+        Time.timeScale = 1f;
+
+
+        SceneManager.LoadScene(
+            SceneManager.GetActiveScene().buildIndex
+        );
     }
 }

@@ -18,6 +18,10 @@ public class WallController : MonoBehaviour
     public Transform player;
 
 
+    [Header("Audio")]
+    public AudioSource wallSound;
+
+
     [Header("Insanity")]
     public InsanityManager insanityManager;
     public float insanityPerSecond = 10f;
@@ -71,6 +75,7 @@ public class WallController : MonoBehaviour
             player.position.z - transform.position.z;
 
 
+
         if(distance <= dangerDistance)
         {
             if(insanityManager != null)
@@ -88,6 +93,12 @@ public class WallController : MonoBehaviour
     public void StartWall()
     {
         active = true;
+
+
+        if(wallSound != null)
+        {
+            wallSound.Play();
+        }
     }
 
 

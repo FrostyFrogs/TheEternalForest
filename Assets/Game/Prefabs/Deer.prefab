@@ -49,6 +49,8 @@ MonoBehaviour:
   lookAngle: 25
   requiredLookTime: 1.5
   maxMouseSpeed: 3
+  retreatDistance: 6
+  retreatSpeed: 2
   failureInsanity: 15
   successInsanity: 10
   passiveInsanity: 1.5
@@ -65,7 +67,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 86a817b4bae102f4989c347c8d619284, type: 3}
+  m_Resource: {fileID: 8300000, guid: d68a88e19da070a46a50da1a551bd88a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

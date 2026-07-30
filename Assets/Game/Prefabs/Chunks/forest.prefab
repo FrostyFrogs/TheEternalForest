@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7918335002988649766, guid: 06cf0e60bdeab7f41b16eb67c9194939, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: acdadc6343dd7c54385eb37ed664cdd4, type: 2}
     - target: {fileID: -7029948723529949830, guid: 06cf0e60bdeab7f41b16eb67c9194939, type: 3}
       propertyPath: m_Layer
       value: 10
@@ -1115,7 +1119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Chunk
   WhatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1024
   bearTrapPrefab: {fileID: 6423996099025601202, guid: d658c60f8d582ee4e96d368856d9d2a1, type: 3}
   matchboxPrefab: {fileID: 840587572793171283, guid: 68c88228995789e4d81143a2378562ad, type: 3}
   startingMatchboxes: 200

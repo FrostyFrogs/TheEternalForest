@@ -10,8 +10,9 @@ public class StampedeController : MonoBehaviour
 
     public GameObject stampedeEnemyPrefab;
 
+
+    [Header("Audio")]
     public AudioSource warningSound;
-    public AudioSource stampedeSound;
 
 
     [Header("Timing")]
@@ -21,6 +22,7 @@ public class StampedeController : MonoBehaviour
     [Header("Spawn")]
     public float forwardSpawnDistance = 10f;
     public float sideSpawnDistance = 15f;
+
     private Vector3 warningStartPosition;
 
 
@@ -36,13 +38,28 @@ public class StampedeController : MonoBehaviour
     public float runFailureInsanity = 35f;
     public float successInsanity = 10f;
 
+
+
+    void Update()
+    {
+        // Temporary testing
+        if(Input.GetKeyDown(KeyCode.U))
+        {
+            StartStampede();
+        }
+    }
+
+
+
     public void StartStampede()
     {
         if(active)
             return;
 
 
-        StartCoroutine(StampedeEvent());
+        StartCoroutine(
+            StampedeEvent()
+        );
     }
 
 
@@ -53,15 +70,19 @@ public class StampedeController : MonoBehaviour
 
 
         if(warningSound != null)
+        {
             warningSound.Play();
+        }
 
 
-        // Save where player was when warning started
-        warningStartPosition = player.position;
+        warningStartPosition =
+            player.position;
 
 
-        // Give player time to react
-        yield return new WaitForSeconds(warningDelay);
+
+        yield return new WaitForSeconds(
+            warningDelay
+        );
 
 
 
@@ -69,9 +90,12 @@ public class StampedeController : MonoBehaviour
         {
             case PlayerMovement.MovementState.crouching:
 
-                insanityManager.DecreaseInsanity(
-                    successInsanity
-                );
+                if(insanityManager != null)
+                {
+                    insanityManager.DecreaseInsanity(
+                        successInsanity
+                    );
+                }
 
                 break;
 
@@ -99,6 +123,24 @@ public class StampedeController : MonoBehaviour
 
 
 
+    void PlayStampedeSound(GameObject enemy)
+    {
+        AudioSource sound =
+            enemy.GetComponent<AudioSource>();
+
+
+        if(sound == null)
+        {
+            Debug.Log("No AudioSource on stampede prefab");
+            return;
+        }
+
+
+        sound.Play();
+    }
+
+
+
     void SpawnWalkingStampede()
     {
         float side =
@@ -122,20 +164,31 @@ public class StampedeController : MonoBehaviour
 
 
 
+        PlayStampedeSound(enemy);
+
+
+
         StampedeChase movement =
             enemy.GetComponent<StampedeChase>();
 
 
-        movement.insanityManager = insanityManager;
-        movement.insanityDamage = walkFailureInsanity;
+        if(movement != null)
+        {
+            movement.insanityManager =
+                insanityManager;
+
+
+            movement.insanityDamage =
+                walkFailureInsanity;
 
 
 
-        movement.StartCrossing(
-            player.right,
-            side,
-            enemySpeed
-        );
+            movement.StartCrossing(
+                player.right,
+                side,
+                enemySpeed
+            );
+        }
     }
 
 
@@ -162,18 +215,29 @@ public class StampedeController : MonoBehaviour
 
 
 
+        PlayStampedeSound(enemy);
+
+
+
         StampedeChase movement =
             enemy.GetComponent<StampedeChase>();
 
 
-        movement.insanityManager = insanityManager;
-        movement.insanityDamage = runFailureInsanity;
+        if(movement != null)
+        {
+            movement.insanityManager =
+                insanityManager;
+
+
+            movement.insanityDamage =
+                runFailureInsanity;
 
 
 
-        movement.StartChasing(
-            player,
-            enemySpeed
-        );
+            movement.StartChasing(
+                player,
+                enemySpeed
+            );
+        }
     }
 }

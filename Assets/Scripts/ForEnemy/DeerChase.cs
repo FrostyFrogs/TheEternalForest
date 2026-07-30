@@ -7,6 +7,10 @@ public class DeerChase : MonoBehaviour
     public float requiredLookTime = 1.5f;
     public float maxMouseSpeed = 3f;
 
+    [Header("Movement")]
+    public float retreatDistance = 6f;
+    public float retreatSpeed = 2f;
+
 
     [Header("Insanity")]
     public float failureInsanity = 25f;
@@ -57,7 +61,7 @@ public class DeerChase : MonoBehaviour
 
 
         FacePlayer();
-
+        MoveAway();
 
         active = true;
 
@@ -246,5 +250,29 @@ public class DeerChase : MonoBehaviour
                 rotation,
                 5f * Time.deltaTime
             );
+    }
+    
+    void MoveAway()
+    {
+        float distance =
+            Vector3.Distance(
+                transform.position,
+                player.position
+            );
+
+        if(distance > retreatDistance)
+            return;
+
+
+        Vector3 direction =
+            (transform.position - player.position).normalized;
+
+        direction.y = 0;
+
+
+        transform.position +=
+            direction *
+            retreatSpeed *
+            Time.deltaTime;
     }
 }

@@ -13,29 +13,39 @@ public class StampedeChase : MonoBehaviour
 
     private bool chasing;
 
+
     public float lifeTime = 5f;
 
+
+    [Header("Insanity")]
     public InsanityManager insanityManager;
     public float insanityDamage;
 
 
 
-    // Used for walking state
-    public void StartCrossing(Vector3 right, float side, float moveSpeed)
+    public void StartCrossing(
+        Vector3 right,
+        float side,
+        float moveSpeed)
     {
         movementDirection = -right * side;
+
         speed = moveSpeed;
+
         moving = true;
 
+
         transform.rotation =
-            Quaternion.LookRotation(movementDirection);
+            Quaternion.LookRotation(
+                movementDirection
+            );
+
 
         Destroy(gameObject, lifeTime);
     }
 
 
 
-    // Used for sprinting
     public void StartChasing(
         Transform target,
         float chaseSpeed)
@@ -70,6 +80,10 @@ public class StampedeChase : MonoBehaviour
 
     void Chase()
     {
+        if(player == null)
+            return;
+
+
         Vector3 direction =
             player.position -
             transform.position;
@@ -84,10 +98,51 @@ public class StampedeChase : MonoBehaviour
             Time.deltaTime;
 
 
-        transform.rotation =
-            Quaternion.LookRotation(direction);
+        if(direction != Vector3.zero)
+        {
+            transform.rotation =
+                Quaternion.LookRotation(direction);
+        }
     }
 
+
+
+    // Original no-argument version
+    public void PlayerDetected()
+    {
+        DamagePlayer();
+    }
+
+
+
+    // Compatibility with SpeedDetection.cs
+    public void PlayerDetected(Transform target)
+    {
+        DamagePlayer();
+    }
+
+
+
+    // Extra compatibility if another script uses Collider
+    public void PlayerDetected(Collider other)
+    {
+        DamagePlayer();
+    }
+
+
+
+    void DamagePlayer()
+    {
+        if(insanityManager != null)
+        {
+            insanityManager.IncreaseInsanity(
+                insanityDamage
+            );
+        }
+
+
+        Destroy(gameObject);
+    }
 
 
 
@@ -95,14 +150,7 @@ public class StampedeChase : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            if(insanityManager != null)
-            {
-                insanityManager.IncreaseInsanity(
-                    insanityDamage
-                );
-            }
-
-            Destroy(gameObject);
+            PlayerDetected(other.transform);
         }
     }
 }
